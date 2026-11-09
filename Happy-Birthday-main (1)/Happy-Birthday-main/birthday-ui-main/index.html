@@ -1,0 +1,5159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+
+<title>Happy Birthday 🎂</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root{
+  --red-main:#f20f3a;
+  --red-deep:#d90832;
+  --red-dark:#a6072b;
+  --cream:#fff7df;
+  --paper:#fffdf7;
+  --gold:#f5d36b;
+  --night-main:#29294a;
+  --night-deep:#1f1f3b;
+  --night-glow:#45456c;
+  --ink:#6b4636;
+  --ink-light:#a98a72;
+  --font-ui:'Poppins',sans-serif;
+  --font-serif:'Cormorant Garamond',serif;
+  --font-script:'Great Vibes',cursive;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html,body{
+  height:100%;
+}
+
+body{
+  font-family:var(--font-ui);
+  overflow:hidden;
+  width:100vw;
+  height:100vh;
+  position:relative;
+  background:var(--red-dark);
+}
+
+button{
+  font-family:inherit;
+  border:none;
+  cursor:pointer;
+  background:none;
+}
+
+img{
+  display:block;
+  max-width:100%;
+}
+
+/* =========================================================
+   GENERAL SCREENS
+========================================================= */
+
+.screen{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transform:scale(.97);
+  transition:opacity 1.1s ease, transform 1.1s ease;
+  z-index:1;
+  padding:24px;
+  overflow:hidden;
+}
+
+.screen.active{
+  opacity:1;
+  pointer-events:auto;
+  transform:scale(1);
+  z-index:5;
+}
+
+/* =========================================================
+   BIRTHDAY WORLDS
+========================================================= */
+
+.screen-red{
+  background:
+    radial-gradient(
+      ellipse at 50% 40%,
+      var(--red-main) 0%,
+      var(--red-deep) 55%,
+      var(--red-dark) 100%
+    );
+}
+
+.screen-night{
+  background:
+    radial-gradient(
+      ellipse at 50% 45%,
+      var(--night-glow) 0%,
+      var(--night-main) 55%,
+      var(--night-deep) 100%
+    );
+}
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+.particles{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+.particle{
+  position:absolute;
+  will-change:transform,opacity;
+}
+
+.particle.dot{
+  border-radius:50%;
+  background:rgba(255,255,255,.55);
+}
+
+.particle.gold{
+  border-radius:50%;
+  background:var(--gold);
+  box-shadow:0 0 6px var(--gold);
+}
+
+.particle.heart{
+  color:rgba(255,255,255,.65);
+  font-size:14px;
+  line-height:1;
+}
+
+.particle.heart::before{
+  content:'♥';
+}
+
+.particle.confetti{
+  background:var(--gold);
+  border-radius:2px;
+}
+
+@keyframes drift{
+  0%{
+    transform:translateY(0) translateX(0) rotate(0deg);
+    opacity:0;
+  }
+
+  10%{
+    opacity:1;
+  }
+
+  90%{
+    opacity:1;
+  }
+
+  100%{
+    transform:
+      translateY(-120px)
+      translateX(var(--dx,20px))
+      rotate(180deg);
+    opacity:0;
+  }
+}
+
+@keyframes fall{
+  0%{
+    transform:
+      translateY(-10vh)
+      translateX(0)
+      rotate(0deg);
+    opacity:0;
+  }
+
+  8%{
+    opacity:1;
+  }
+
+  100%{
+    transform:
+      translateY(110vh)
+      translateX(var(--dx,30px))
+      rotate(360deg);
+    opacity:.9;
+  }
+}
+
+/* =========================================================
+   SCREEN 1 - PIN
+========================================================= */
+
+.pin-wrap{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:clamp(20px,5vw,64px);
+  flex-wrap:wrap;
+  position:relative;
+  z-index:2;
+}
+
+.memory-card{
+  background:var(--paper);
+  width:clamp(160px,22vw,200px);
+  padding:14px 14px 20px;
+  border-radius:6px;
+  box-shadow:
+    0 20px 40px rgba(0,0,0,.35),
+    0 4px 10px rgba(0,0,0,.2);
+  transform:rotate(-4deg) scale(.9);
+  opacity:0;
+  position:relative;
+}
+
+.screen-pin.active .memory-card{
+  animation:
+    cardIn .9s .2s
+    cubic-bezier(.2,.8,.2,1)
+    forwards;
+}
+
+@keyframes cardIn{
+  to{
+    opacity:1;
+    transform:rotate(-4deg) scale(1);
+  }
+}
+
+.memory-card .tape{
+  position:absolute;
+  top:-10px;
+  left:50%;
+  transform:translateX(-50%) rotate(-3deg);
+  width:60px;
+  height:22px;
+  background:rgba(245,211,107,.55);
+  border:1px solid rgba(245,211,107,.7);
+}
+
+.memory-card .photo{
+  width:100%;
+  aspect-ratio:4/5;
+  object-fit:cover;
+  border:4px solid #fff;
+  border-radius:2px;
+  box-shadow:0 2px 6px rgba(0,0,0,.15);
+}
+
+.memory-card .caption{
+  margin-top:12px;
+  text-align:center;
+  font-family:var(--font-serif);
+  font-style:italic;
+  color:var(--ink);
+  font-size:14px;
+}
+
+.pin-panel{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  opacity:0;
+  transform:translateY(14px);
+}
+
+.screen-pin.active .pin-panel{
+  animation:
+    panelIn .9s .35s
+    cubic-bezier(.2,.8,.2,1)
+    forwards;
+}
+
+@keyframes panelIn{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.gift-icon{
+  font-size:26px;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,.25));
+}
+
+.pin-label{
+  color:rgba(255,255,255,.85);
+  font-size:11px;
+  letter-spacing:3px;
+  font-weight:500;
+}
+
+.pin-dots{
+  display:flex;
+  gap:12px;
+  margin:4px 0 10px;
+}
+
+.pin-dots .dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.6);
+  transition:
+    background .25s ease,
+    box-shadow .25s ease,
+    transform .25s ease;
+}
+
+.pin-dots .dot.filled{
+  background:var(--gold);
+  box-shadow:0 0 8px var(--gold);
+  transform:scale(1.15);
+  border-color:var(--gold);
+}
+
+.pin-dots.shake{
+  animation:shake .4s;
+}
+
+@keyframes shake{
+  0%,100%{transform:translateX(0);}
+  20%{transform:translateX(-8px);}
+  40%{transform:translateX(8px);}
+  60%{transform:translateX(-6px);}
+  80%{transform:translateX(6px);}
+}
+
+.keypad{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.keypad button{
+  width:clamp(46px,10vw,56px);
+  height:clamp(46px,10vw,56px);
+  border-radius:50%;
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.28);
+  color:#fff;
+  font-size:17px;
+  font-weight:500;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:
+    background .18s ease,
+    transform .12s ease;
+  opacity:0;
+  transform:scale(.7);
+}
+
+.screen-pin.active .keypad button{
+  animation:
+    keyIn .5s
+    cubic-bezier(.2,.8,.2,1)
+    forwards;
+}
+
+.keypad button:hover{
+  background:rgba(255,255,255,.24);
+}
+
+.keypad button:active{
+  transform:scale(.9);
+}
+
+.keypad button.spacer{
+  visibility:hidden;
+  pointer-events:none;
+}
+
+@keyframes keyIn{
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+.pin-hint{
+  margin-top:14px;
+  font-size:11px;
+  letter-spacing:.5px;
+  color:rgba(255,255,255,.45);
+  text-align:center;
+}
+
+/* =========================================================
+   SCREEN 2 - LETTER
+========================================================= */
+
+.letter-wrap{
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  gap:clamp(20px,4vw,56px);
+  flex-wrap:wrap;
+  max-width:900px;
+  position:relative;
+  z-index:2;
+}
+
+.letter-col{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:22px;
+}
+
+.letter-card{
+  background:var(--paper);
+  width:clamp(240px,32vw,340px);
+  padding:
+    clamp(24px,3vw,34px)
+    clamp(20px,3vw,28px);
+  border-radius:4px;
+  box-shadow:0 24px 50px rgba(0,0,0,.35);
+  opacity:0;
+  transform:translateY(24px) scale(.96);
+}
+
+.screen-letter.active .letter-card{
+  animation:
+    letterIn 1s .15s
+    cubic-bezier(.2,.8,.2,1)
+    forwards;
+}
+
+@keyframes letterIn{
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+.letter-eyebrow{
+  font-size:11px;
+  letter-spacing:5px;
+  color:var(--ink-light);
+  font-weight:600;
+  text-align:center;
+}
+
+.letter-title{
+  font-family:var(--font-script);
+  font-size:clamp(40px,6vw,56px);
+  color:var(--red-deep);
+  text-align:center;
+  margin:4px 0 14px;
+  line-height:1;
+}
+
+.letter-body p{
+  font-family:var(--font-serif);
+  font-style:italic;
+  color:var(--ink);
+  font-size:15px;
+  line-height:1.7;
+  margin-bottom:10px;
+  text-align:center;
+}
+
+.letter-sign{
+  font-family:var(--font-script);
+  font-size:22px;
+  color:var(--red-deep);
+  text-align:right;
+  margin-top:14px;
+}
+
+.memory-stack{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.memory-stack .ph{
+  position:relative;
+}
+
+.memory-stack img{
+  width:clamp(180px,26vw,230px);
+  height:110px;
+  object-fit:cover;
+  border:6px solid #fff;
+  border-radius:2px;
+  box-shadow:0 12px 26px rgba(0,0,0,.3);
+  opacity:0;
+  position:relative;
+}
+
+.memory-stack .ph .tape{
+  position:absolute;
+  top:-8px;
+  left:16px;
+  width:44px;
+  height:18px;
+  background:rgba(245,211,107,.55);
+  border:1px solid rgba(245,211,107,.7);
+  transform:rotate(-6deg);
+  z-index:2;
+}
+
+.memory-stack .ph:nth-child(1) img{
+  transform:rotate(2.5deg);
+}
+
+.memory-stack .ph:nth-child(2) img{
+  transform:rotate(-2deg);
+}
+
+.memory-stack .ph:nth-child(3) img{
+  transform:rotate(1.5deg);
+}
+
+.screen-letter.active
+.memory-stack .ph:nth-child(1) img{
+  animation:photoIn .8s .5s ease forwards;
+}
+
+.screen-letter.active
+.memory-stack .ph:nth-child(2) img{
+  animation:photoIn .8s .68s ease forwards;
+}
+
+.screen-letter.active
+.memory-stack .ph:nth-child(3) img{
+  animation:photoIn .8s .86s ease forwards;
+}
+
+@keyframes photoIn{
+  from{
+    opacity:0;
+    transform:
+      translateX(20px)
+      scale(.94);
+  }
+
+  to{
+    opacity:1;
+  }
+}
+
+.wish-btn{
+  margin-top:6px;
+  background:var(--cream);
+  color:var(--red-dark);
+  padding:13px 30px;
+  border-radius:40px;
+  font-size:14px;
+  font-weight:600;
+  box-shadow:0 10px 24px rgba(0,0,0,.25);
+  opacity:0;
+  transform:translateY(10px);
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    filter .2s ease;
+}
+
+.screen-letter.active .wish-btn{
+  animation:btnIn .7s 1.05s ease forwards;
+}
+
+@keyframes btnIn{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.wish-btn:hover{
+  transform:translateY(-2px);
+  filter:brightness(1.05);
+}
+
+.wish-btn:active{
+  transform:translateY(0) scale(.96);
+}
+
+/* =========================================================
+   SCREEN 3 - CAKE
+========================================================= */
+
+.wish-content{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  position:relative;
+  z-index:2;
+}
+
+.wish-title{
+  font-family:var(--font-script);
+  font-size:clamp(38px,7vw,64px);
+  color:var(--cream);
+  text-shadow:0 0 24px rgba(255,247,223,.55);
+  opacity:0;
+  transform:translateY(16px);
+}
+
+.screen-wish.active .wish-title{
+  animation:wishTitleIn 1s .2s ease forwards;
+}
+
+@keyframes wishTitleIn{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.wish-subtitle{
+  font-size:12px;
+  color:rgba(255,247,223,.6);
+  letter-spacing:.5px;
+  margin-top:8px;
+  opacity:0;
+}
+
+.screen-wish.active .wish-subtitle{
+  animation:fadeUp .8s .5s ease forwards;
+}
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.cake-wrap{
+  margin:36px 0 28px;
+  opacity:0;
+  transform:scale(.85);
+  position:relative;
+}
+
+.screen-wish.active .cake-wrap{
+  animation:
+    cakeIn .9s .55s
+    cubic-bezier(.2,.8,.2,1)
+    forwards;
+}
+
+@keyframes cakeIn{
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+.flame{
+  cursor:pointer;
+  transform-origin:bottom center;
+  animation:flicker 1.4s ease-in-out infinite;
+  transition:
+    opacity .5s ease,
+    transform .5s ease;
+}
+
+.flame.out{
+  animation:none;
+  opacity:0;
+  transform:scale(.2);
+}
+
+@keyframes flicker{
+  0%,100%{
+    transform:scaleY(1) scaleX(1);
+  }
+
+  50%{
+    transform:scaleY(1.12) scaleX(.94);
+  }
+}
+
+.wish-btn2{
+  background:transparent;
+  color:var(--cream);
+  border:1px solid rgba(255,247,223,.55);
+  padding:12px 28px;
+  border-radius:40px;
+  font-size:13px;
+  letter-spacing:.5px;
+  box-shadow:0 0 18px rgba(255,247,223,.12);
+  opacity:0;
+  transform:translateY(10px);
+  transition:
+    filter .2s ease,
+    transform .2s ease;
+}
+
+.screen-wish.active .wish-btn2{
+  animation:btnIn .7s .9s ease forwards;
+}
+
+.wish-btn2:hover{
+  filter:brightness(1.3);
+}
+
+.wish-btn2:active{
+  transform:scale(.96);
+}
+
+/* =========================================================
+   SCREEN 4 - FINAL
+========================================================= */
+
+.final-content{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  max-width:100%;
+}
+
+.final-title{
+  font-family:var(--font-script);
+  color:var(--cream);
+  font-size:clamp(46px,9vw,84px);
+  text-shadow:
+    0 0 30px rgba(255,247,223,.6),
+    0 2px 8px rgba(0,0,0,.3);
+  filter:blur(6px);
+  opacity:0;
+  transform:translateY(20px);
+  line-height:1.05;
+}
+
+.screen-final.active .final-title{
+  animation:finalIn 1.2s .2s ease forwards;
+}
+
+@keyframes finalIn{
+  to{
+    filter:blur(0);
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.final-sub{
+  font-family:var(--font-script);
+  color:var(--cream);
+  font-size:clamp(30px,6vw,52px);
+  text-shadow:0 0 24px rgba(255,247,223,.5);
+  filter:blur(6px);
+  opacity:0;
+  transform:translateY(16px);
+}
+
+.screen-final.active .final-sub{
+  animation:finalIn 1.2s .55s ease forwards;
+}
+
+.final-controls{
+  margin-top:26px;
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+  opacity:0;
+}
+
+.screen-final.active .final-controls{
+  animation:fadeUp .8s 1.2s ease forwards;
+}
+
+.pill-ghost{
+  background:rgba(255,255,255,.12);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.35);
+  padding:9px 20px;
+  border-radius:30px;
+  font-size:12px;
+  letter-spacing:.3px;
+  transition:
+    background .2s ease,
+    transform .15s ease;
+}
+
+.pill-ghost:hover{
+  background:rgba(255,255,255,.22);
+}
+
+.pill-ghost:active{
+  transform:scale(.95);
+}
+
+/* =========================================================
+   VIDEO
+========================================================= */
+
+.birthday-video-section{
+  width:min(420px,88vw);
+  margin:22px auto 0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+}
+
+.video-message{
+  color:#fff7df;
+  font-size:15px;
+  letter-spacing:.5px;
+  margin:0;
+}
+
+.birthday-video{
+  display:block;
+  width:100%;
+  max-height:220px;
+  border-radius:14px;
+  background:#300015;
+  border:1px solid rgba(255,247,223,.5);
+  box-shadow:0 8px 25px rgba(0,0,0,.25);
+}
+
+.download-video{
+  display:inline-block;
+  padding:10px 22px;
+  border:1px solid rgba(255,247,223,.65);
+  border-radius:30px;
+  color:#fff7df;
+  background:rgba(255,255,255,.13);
+  text-decoration:none;
+  font-size:13px;
+}
+
+/* =========================================================
+   SCREEN 5 - MOONVERSE
+========================================================= */
+
+/*
+   IMPORTANT:
+   All MoonVerse styles are prefixed with .moonverse-screen
+   so they don't interfere with the birthday website.
+*/
+
+.moonverse-screen{
+  background:#010206 !important;
+  padding:0 !important;
+  overflow:hidden !important;
+  display:block !important;
+  transform:scale(1) !important;
+}
+
+.moonverse-screen.active{
+  opacity:1;
+  pointer-events:auto;
+  z-index:100;
+}
+
+#moonverse-container{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+
+#moonverse-container canvas{
+  display:block;
+  width:100%;
+  height:100%;
+}
+
+.moonverse-loader{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  background:#010204;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  font-family:'Inter',system-ui,sans-serif;
+  z-index:999;
+  transition:opacity 1s ease-out;
+}
+
+.moonverse-spinner{
+  width:40px;
+  height:40px;
+  border:3px solid rgba(255,255,255,.1);
+  border-radius:50%;
+  border-top-color:#fff;
+  animation:moonverseSpin 1s ease-in-out infinite;
+  margin-bottom:20px;
+}
+
+@keyframes moonverseSpin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+.moonverse-ui{
+  position:absolute;
+  bottom:40px;
+  left:40px;
+  max-width:min(600px,calc(100vw - 80px));
+  color:rgba(255,255,255,.8);
+  font-family:'Inter',system-ui,sans-serif;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity 2.5s ease-in;
+  text-shadow:0 2px 10px rgba(0,0,0,.5);
+  z-index:20;
+}
+
+.moonverse-ui h1{
+  margin:0;
+  font-family:Arial,sans-serif;
+  font-weight:400;
+  font-size:clamp(24px,4.5vw,32px);
+  letter-spacing:clamp(3px,.5vw,6px);
+  text-transform:uppercase;
+  color:#fff;
+  text-shadow:0 0 20px rgba(200,220,255,.6);
+}
+
+.moonverse-ui p{
+  margin:12px 0 0 0;
+  font-family:Arial,sans-serif;
+  font-size:clamp(11px,2.6vw,13px);
+  font-weight:300;
+  letter-spacing:clamp(1.5px,.3vw,2px);
+  color:rgba(200,220,255,.7);
+  text-transform:uppercase;
+}
+
+#moonverse-vignette{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  background:
+    radial-gradient(
+      circle at center,
+      transparent 40%,
+      rgba(0,0,0,.6) 100%
+    );
+  pointer-events:none;
+  z-index:10;
+}
+
+.moonverse-exit{
+  position:absolute;
+  top:25px;
+  right:25px;
+  z-index:50;
+  color:rgba(255,255,255,.75);
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.25);
+  padding:9px 16px;
+  border-radius:25px;
+  font-family:var(--font-ui);
+  font-size:11px;
+  opacity:0;
+  transition:
+    background .2s ease,
+    opacity 1s ease;
+}
+
+.moonverse-screen.active .moonverse-exit{
+  opacity:1;
+  transition-delay:3s;
+}
+
+.moonverse-exit:hover{
+  background:rgba(255,255,255,.18);
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:640px){
+
+  .pin-wrap{
+    flex-direction:column;
+    gap:26px;
+  }
+
+  .letter-wrap{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .memory-stack{
+    flex-direction:row;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+
+  .memory-stack img{
+    width:100px;
+    height:80px;
+  }
+
+  .birthday-video-section{
+    width:min(340px,88vw);
+    margin-top:18px;
+  }
+
+  .birthday-video{
+    max-height:160px;
+  }
+
+  .video-message{
+    font-size:13px;
+  }
+
+  .moonverse-ui{
+    bottom:max(30px,env(safe-area-inset-bottom));
+    left:50%;
+    transform:translateX(-50%);
+    width:min(92vw,400px);
+    text-align:center;
+  }
+
+  .moonverse-ui h1{
+    font-size:26px;
+    letter-spacing:3px;
+  }
+
+  .moonverse-ui p{
+    font-size:11px;
+    letter-spacing:1.5px;
+  }
+
+  .moonverse-exit{
+    top:15px;
+    right:15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     SCREEN 1 : SECRET PASSWORD
+========================================================= -->
+
+<section
+  class="screen screen-red screen-pin active"
+  id="screen-pin"
+>
+
+  <div
+    class="particles"
+    id="particles-pin"
+  ></div>
+
+  <div class="pin-wrap">
+
+    <div class="memory-card">
+
+      <div class="tape"></div>
+
+      <img
+        class="photo"
+        id="card-photo"
+        src=""
+        alt="birthday memory"
+      >
+
+      <div class="caption">
+        happy birthday, Semicolon 💕
+      </div>
+
+    </div>
+
+    <div class="pin-panel">
+
+      <div class="gift-icon">
+        🎁
+      </div>
+
+      <div class="pin-label">
+        ENTER PASSWORD
+      </div>
+
+      <div
+        class="pin-dots"
+        id="pin-dots"
+      ></div>
+
+      <div
+        class="keypad"
+        id="keypad"
+      ></div>
+
+      <div
+        class="pin-hint"
+        id="pin-hint"
+      ></div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     SCREEN 2 : LETTER + MEMORIES
+========================================================= -->
+
+<section
+  class="screen screen-red screen-letter"
+  id="screen-letter"
+>
+
+  <div
+    class="particles"
+    id="particles-letter"
+  ></div>
+
+  <div class="letter-wrap">
+
+    <div class="letter-col">
+
+      <div class="letter-card">
+
+        <div class="letter-eyebrow">
+          HAPPY
+        </div>
+
+        <div
+          class="letter-title"
+          id="letter-title"
+        ></div>
+
+        <div
+          class="letter-body"
+          id="letter-body"
+        ></div>
+
+        <div
+          class="letter-sign"
+          id="letter-sign"
+        ></div>
+
+      </div>
+
+      <button
+        class="wish-btn"
+        id="wish-btn"
+      >
+        make a wish 💛
+      </button>
+
+    </div>
+
+    <div
+      class="memory-stack"
+      id="memory-stack"
+    ></div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     SCREEN 3 : MAKE A WISH
+========================================================= -->
+
+<section
+  class="screen screen-night screen-wish"
+  id="screen-wish"
+>
+
+  <div
+    class="particles"
+    id="particles-wish"
+  ></div>
+
+  <div class="wish-content">
+
+    <div class="wish-title">
+      Make a wish...
+    </div>
+
+    <div
+      class="wish-subtitle"
+      id="wish-subtitle"
+    ></div>
+
+    <div class="cake-wrap">
+
+      <svg
+        width="180"
+        height="150"
+        viewBox="0 0 180 150"
+        id="cake-svg"
+      >
+
+        <g id="candle-1">
+          <rect
+            x="52"
+            y="46"
+            width="8"
+            height="26"
+            rx="2"
+            fill="#fff7df"
+          />
+
+          <ellipse
+            class="flame"
+            data-idx="0"
+            cx="56"
+            cy="38"
+            rx="6"
+            ry="10"
+            fill="#ffd36b"
+          />
+        </g>
+
+        <g id="candle-2">
+
+          <rect
+            x="86"
+            y="40"
+            width="8"
+            height="32"
+            rx="2"
+            fill="#fff7df"
+          />
+
+          <ellipse
+            class="flame"
+            data-idx="1"
+            cx="90"
+            cy="32"
+            rx="6"
+            ry="10"
+            fill="#ffd36b"
+          />
+
+        </g>
+
+        <g id="candle-3">
+
+          <rect
+            x="120"
+            y="46"
+            width="8"
+            height="26"
+            rx="2"
+            fill="#fff7df"
+          />
+
+          <ellipse
+            class="flame"
+            data-idx="2"
+            cx="124"
+            cy="38"
+            rx="6"
+            ry="10"
+            fill="#ffd36b"
+          />
+
+        </g>
+
+        <rect
+          x="20"
+          y="72"
+          width="140"
+          height="54"
+          rx="14"
+          fill="#fff7df"
+        />
+
+        <rect
+          x="20"
+          y="72"
+          width="140"
+          height="16"
+          rx="8"
+          fill="#fffdf7"
+        />
+
+        <rect
+          x="10"
+          y="120"
+          width="160"
+          height="18"
+          rx="9"
+          fill="#fff2cf"
+        />
+
+      </svg>
+
+    </div>
+
+    <button
+      class="wish-btn2"
+      id="blow-btn"
+    >
+      blow them out
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     SCREEN 4 : FINAL BIRTHDAY
+========================================================= -->
+
+<section
+  class="screen screen-red screen-final"
+  id="screen-final"
+>
+
+  <div
+    class="particles"
+    id="particles-final"
+  ></div>
+
+  <div class="final-content">
+
+    <div
+      class="final-title"
+      id="final-title-1"
+    ></div>
+
+    <div
+      class="final-sub"
+      id="final-title-2"
+    ></div>
+
+    <div class="birthday-video-section">
+
+      <p class="video-message">
+        A special video for you ❤️
+      </p>
+
+      <video
+        class="birthday-video"
+        controls
+        playsinline
+        preload="metadata"
+      >
+
+        <source
+          src="./birthday-video.mp4"
+          type="video/mp4"
+        >
+
+        Your browser does not support video playback.
+
+      </video>
+
+      <a
+        class="download-video"
+        href="./birthday-video.mp4"
+        download="Birthday-Message.mp4"
+      >
+        ⬇ Download Your Video
+      </a>
+
+    </div>
+
+    <div class="final-controls">
+
+      <button
+        class="pill-ghost"
+        id="replay-btn"
+      >
+        watch again ↺
+      </button>
+
+      <button
+        class="pill-ghost"
+        id="moonverse-btn"
+      >
+        🌙 Enter MoonVerse
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     SCREEN 5 : MOONVERSE
+========================================================= -->
+
+<section
+  class="screen moonverse-screen"
+  id="screen-moonverse"
+>
+
+  <div id="moonverse-container">
+
+    <div
+      class="moonverse-loader"
+      id="moonverse-loader"
+    >
+
+      <div class="moonverse-spinner"></div>
+
+      <div
+        style="
+          letter-spacing:3px;
+          font-weight:300;
+          font-size:14px;
+        "
+      >
+        Loading the Moon...
+      </div>
+
+    </div>
+
+    <div
+      class="moonverse-ui"
+      id="moonverse-ui"
+    >
+
+      <h1>
+        Just like the moon lights up the night
+      </h1>
+
+      <p>
+        That's exactly how I love you
+      </p>
+
+      <p>
+        Bright, gentle, and endless
+      </p>
+
+      <p>
+        You are the light my heart follows, forever
+      </p>
+
+    </div>
+
+    <div id="moonverse-vignette"></div>
+
+    <button
+      class="moonverse-exit"
+      id="moonverse-exit"
+    >
+      ← Birthday
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     THREE.JS IMPORT MAP
+========================================================= -->
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+
+<!-- =========================================================
+     BIRTHDAY JAVASCRIPT
+========================================================= -->
+
+<script>
+
+const CONFIG = {
+
+  password: "1432",
+
+  recipientName: "Swati",
+
+  cardImage: "./main-photo.jpeg",
+
+  memoryImages: [
+    "./mem-1.jpeg",
+    "./mem-2.jpeg",
+    "./mem-3.jpeg"
+  ],
+
+  letterText: {
+
+    title: "Birthday",
+
+    body: [
+
+      "Another year of you being wonderfully, uniquely you.",
+
+      "I hope today is filled with all the little things that make you smile, and a few big ones too.",
+
+      "May your life always be filled with happiness, endless smiles, beautiful memories."
+
+    ]
+
+  },
+
+  signature: "— with love ❤️",
+
+  finalHeading: {
+    line1: "Happy Birthday",
+    line2: "Priority!"
+  }
+
+};
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+const $ = (
+  sel,
+  ctx = document
+) => ctx.querySelector(sel);
+
+const $$ = (
+  sel,
+  ctx = document
+) => Array.from(ctx.querySelectorAll(sel));
+
+const rand = (
+  a,
+  b
+) => a + Math.random() * (b - a);
+
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+function spawnParticles(
+  containerId,
+  count,
+  types
+){
+
+  const el =
+    document.getElementById(containerId);
+
+  if(!el) return;
+
+  for(
+    let i = 0;
+    i < count;
+    i++
+  ){
+
+    const type =
+      types[
+        Math.floor(
+          Math.random() * types.length
+        )
+      ];
+
+    const p =
+      document.createElement('div');
+
+    p.className =
+      'particle ' + type;
+
+    const size =
+      rand(4,10);
+
+    p.style.left =
+      rand(2,98) + '%';
+
+    p.style.top =
+      rand(10,95) + '%';
+
+    if(type !== 'heart'){
+
+      p.style.width =
+        size + 'px';
+
+      p.style.height =
+        size + 'px';
+
+    }
+
+    p.style.setProperty(
+      '--dx',
+      rand(-30,30) + 'px'
+    );
+
+    p.style.animation =
+      `drift ${rand(6,12)}s ease-in-out ${rand(0,6)}s infinite`;
+
+    el.appendChild(p);
+
+  }
+
+}
+
+
+spawnParticles(
+  'particles-pin',
+  22,
+  ['dot','gold','heart']
+);
+
+spawnParticles(
+  'particles-letter',
+  18,
+  ['dot','gold','heart']
+);
+
+spawnParticles(
+  'particles-wish',
+  16,
+  ['dot']
+);
+
+
+/* =========================================================
+   SCREEN 1 : PIN
+========================================================= */
+
+$('#card-photo').src =
+  CONFIG.cardImage;
+
+$('#pin-hint').textContent =
+  'hint — digits only: ' +
+  CONFIG.password
+    .split('')
+    .join(' ');
+
+
+const dotsEl =
+  $('#pin-dots');
+
+for(
+  let i = 0;
+  i < CONFIG.password.length;
+  i++
+){
+
+  const d =
+    document.createElement('div');
+
+  d.className = 'dot';
+
+  dotsEl.appendChild(d);
+
+}
+
+
+const keypadEl =
+  $('#keypad');
+
+const layout = [
+  '1','2','3',
+  '4','5','6',
+  '7','8','9',
+  '','0','back'
+];
+
+layout.forEach(key => {
+
+  const btn =
+    document.createElement('button');
+
+  if(key === ''){
+
+    btn.className = 'spacer';
+
+    btn.disabled = true;
+
+  }
+
+  else if(key === 'back'){
+
+    btn.textContent = '⌫';
+
+    btn.dataset.action = 'back';
+
+  }
+
+  else{
+
+    btn.textContent = key;
+
+    btn.dataset.digit = key;
+
+  }
+
+  keypadEl.appendChild(btn);
+
+});
+
+
+let pinInput = '';
+
+let unlocking = false;
+
+
+keypadEl.addEventListener(
+  'click',
+  e => {
+
+    const btn =
+      e.target.closest('button');
+
+    if(
+      !btn ||
+      unlocking
+    ) return;
+
+    if(
+      btn.dataset.action === 'back'
+    ){
+
+      pinInput =
+        pinInput.slice(0,-1);
+
+    }
+
+    else if(btn.dataset.digit){
+
+      if(
+        pinInput.length <
+        CONFIG.password.length
+      ){
+
+        pinInput +=
+          btn.dataset.digit;
+
+      }
+
+    }
+
+    else return;
+
+    renderPin();
+
+  }
+);
+
+
+function renderPin(){
+
+  const dots =
+    $$('.dot', dotsEl);
+
+  dots.forEach(
+    (d,i) => {
+
+      d.classList.toggle(
+        'filled',
+        i < pinInput.length
+      );
+
+    }
+  );
+
+
+  if(
+    pinInput.length ===
+    CONFIG.password.length
+  ){
+
+    if(
+      pinInput ===
+      CONFIG.password
+    ){
+
+      unlocking = true;
+
+      setTimeout(
+        () =>
+          goToScreen(
+            'screen-letter'
+          ),
+        500
+      );
+
+    }
+
+    else{
+
+      dotsEl.classList.remove(
+        'shake'
+      );
+
+      void dotsEl.offsetWidth;
+
+      dotsEl.classList.add(
+        'shake'
+      );
+
+      setTimeout(
+        () => {
+
+          pinInput = '';
+
+          renderPin();
+
+        },
+        450
+      );
+
+    }
+
+  }
+
+}
+
+
+/* =========================================================
+   SCREEN 2 : LETTER
+========================================================= */
+
+$('#letter-title').textContent =
+  CONFIG.letterText.title;
+
+
+const letterBodyEl =
+  $('#letter-body');
+
+
+const bodyLines =
+  CONFIG.recipientName
+    ? [
+        'Dear ' +
+        CONFIG.recipientName +
+        ',',
+        ...CONFIG.letterText.body
+      ]
+    : CONFIG.letterText.body;
+
+
+bodyLines.forEach(
+  line => {
+
+    const p =
+      document.createElement('p');
+
+    p.textContent =
+      line;
+
+    letterBodyEl.appendChild(p);
+
+  }
+);
+
+
+$('#letter-sign').textContent =
+  CONFIG.signature;
+
+
+const stackEl =
+  $('#memory-stack');
+
+
+CONFIG.memoryImages.forEach(
+  src => {
+
+    const wrap =
+      document.createElement('div');
+
+    wrap.className =
+      'ph';
+
+    wrap.innerHTML =
+      `
+      <div class="tape"></div>
+      <img
+        src="${src}"
+        alt="memory"
+      >
+      `;
+
+    stackEl.appendChild(
+      wrap
+    );
+
+  }
+);
+
+
+$('#wish-btn').addEventListener(
+  'click',
+  () =>
+    goToScreen(
+      'screen-wish'
+    )
+);
+
+
+/* =========================================================
+   SCREEN 3 : CAKE
+========================================================= */
+
+$('#wish-subtitle').textContent =
+  CONFIG.wishSubtitle ||
+  'tap the candles to blow them out ♡';
+
+
+const flames =
+  $$('.flame');
+
+
+function extinguish(
+  flame
+){
+
+  if(
+    flame.classList.contains(
+      'out'
+    )
+  ) return;
+
+  flame.classList.add(
+    'out'
+  );
+
+  spawnSmoke(
+    flame
+  );
+
+}
+
+
+flames.forEach(
+  f =>
+    f.addEventListener(
+      'click',
+      () =>
+        extinguish(f)
+    )
+);
+
+
+function spawnSmoke(
+  flame
+){
+
+  const svg =
+    $('#cake-svg');
+
+  const wrap =
+    svg.parentElement;
+
+  const rect =
+    flame.getBoundingClientRect();
+
+  const wrapRect =
+    wrap.getBoundingClientRect();
+
+  const puff =
+    document.createElement('div');
+
+  puff.style.position =
+    'absolute';
+
+  puff.style.left =
+    (
+      rect.left -
+      wrapRect.left +
+      rect.width / 2 -
+      4
+    ) + 'px';
+
+  puff.style.top =
+    (
+      rect.top -
+      wrapRect.top -
+      4
+    ) + 'px';
+
+  puff.style.width =
+    '8px';
+
+  puff.style.height =
+    '8px';
+
+  puff.style.borderRadius =
+    '50%';
+
+  puff.style.background =
+    'rgba(255,255,255,.5)';
+
+  puff.style.pointerEvents =
+    'none';
+
+  puff.style.transition =
+    'transform 1s ease, opacity 1s ease';
+
+  wrap.appendChild(
+    puff
+  );
+
+  requestAnimationFrame(
+    () => {
+
+      puff.style.transform =
+        'translateY(-30px) scale(2.4)';
+
+      puff.style.opacity =
+        '0';
+
+    }
+  );
+
+  setTimeout(
+    () => puff.remove(),
+    1100
+  );
+
+}
+
+
+$('#blow-btn').addEventListener(
+  'click',
+  () => {
+
+    flames.forEach(
+      f => {
+
+        if(
+          !f.classList.contains(
+            'out'
+          )
+        ){
+
+          extinguish(f);
+
+        }
+
+      }
+    );
+
+    setTimeout(
+      () =>
+        goToScreen(
+          'screen-final'
+        ),
+      700
+    );
+
+  }
+);
+
+
+/* =========================================================
+   SCREEN 4 : FINAL
+========================================================= */
+
+$('#final-title-1').textContent =
+  CONFIG.finalHeading.line1;
+
+$('#final-title-2').textContent =
+  CONFIG.finalHeading.line2;
+
+
+$('#replay-btn').addEventListener(
+  'click',
+  () => {
+
+    pinInput = '';
+
+    renderPin();
+
+    flames.forEach(
+      f =>
+        f.classList.remove(
+          'out'
+        )
+    );
+
+    unlocking = false;
+
+    goToScreen(
+      'screen-pin'
+    );
+
+  }
+);
+
+
+/* =========================================================
+   FINAL PARTICLES
+========================================================= */
+
+function fillFinalParticles(){
+
+  const el =
+    $('#particles-final');
+
+  el.innerHTML = '';
+
+  const types = [
+    'dot',
+    'gold',
+    'heart',
+    'confetti'
+  ];
+
+  for(
+    let i = 0;
+    i < 55;
+    i++
+  ){
+
+    const type =
+      types[
+        Math.floor(
+          Math.random() *
+          types.length
+        )
+      ];
+
+    const p =
+      document.createElement('div');
+
+    p.className =
+      'particle ' + type;
+
+    const size =
+      rand(4,10);
+
+    p.style.left =
+      rand(0,100) + '%';
+
+    p.style.top =
+      '-5%';
+
+    if(
+      type !== 'heart'
+    ){
+
+      p.style.width =
+        size + 'px';
+
+      p.style.height =
+        size + 'px';
+
+    }
+
+    p.style.setProperty(
+      '--dx',
+      rand(-40,40) + 'px'
+    );
+
+    p.style.animation =
+      `fall ${rand(5,10)}s linear ${rand(0,4)}s infinite`;
+
+    el.appendChild(
+      p
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   SCREEN STATE MACHINE
+========================================================= */
+
+const screens =
+  $$('.screen');
+
+
+function goToScreen(
+  id
+){
+
+  screens.forEach(
+    s =>
+      s.classList.remove(
+        'active'
+      )
+  );
+
+  const target =
+    document.getElementById(id);
+
+  if(!target) return;
+
+  target.classList.add(
+    'active'
+  );
+
+
+  if(
+    id === 'screen-final'
+  ){
+
+    fillFinalParticles();
+
+  }
+
+
+  if(
+    id === 'screen-moonverse'
+  ){
+
+    startMoonVerse();
+
+  }
+
+}
+
+
+/* =========================================================
+   MOONVERSE BUTTON
+========================================================= */
+
+$('#moonverse-btn').addEventListener(
+  'click',
+  () => {
+
+    goToScreen(
+      'screen-moonverse'
+    );
+
+  }
+);
+
+
+/* =========================================================
+   MOONVERSE EXIT
+========================================================= */
+
+$('#moonverse-exit').addEventListener(
+  'click',
+  () => {
+
+    goToScreen(
+      'screen-final'
+    );
+
+  }
+);
+
+</script>
+
+
+<!-- =========================================================
+     MOONVERSE THREE.JS
+========================================================= -->
+
+<script type="module">
+
+import * as THREE from 'three';
+
+import {
+  OrbitControls
+} from 'three/addons/controls/OrbitControls.js';
+
+import {
+  Water
+} from 'three/addons/objects/Water.js';
+
+import {
+  EffectComposer
+} from 'three/addons/postprocessing/EffectComposer.js';
+
+import {
+  RenderPass
+} from 'three/addons/postprocessing/RenderPass.js';
+
+import {
+  UnrealBloomPass
+} from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+
+/* =========================================================
+   MOONVERSE VARIABLES
+========================================================= */
+
+let moonScene;
+let moonCamera;
+let moonRenderer;
+let moonWater;
+let moon;
+let moonComposer;
+let moonControls;
+
+let starShaderMat;
+let auroraMat;
+
+let shootingStars = [];
+
+let starHeadTex;
+
+let birds = [];
+
+let fishes = [];
+
+let fishMat;
+
+let moonInitialized = false;
+
+let moonAnimationStarted = false;
+
+
+/* =========================================================
+   START MOONVERSE
+========================================================= */
+
+window.startMoonVerse = function(){
+
+  try{
+
+    if(!moonInitialized){
+
+      initMoonVerse();
+
+      moonInitialized = true;
+
+    }
+
+    moonAnimationStarted = true;
+
+  }
+  catch(error){
+
+    console.error(
+      'MoonVerse initialization failed:',
+      error
+    );
+
+    showMoonError(error);
+
+  }
+
+};
+  function showMoonError(error){
+
+  console.error(
+    'MoonVerse initialization failed:',
+    error
+  );
+
+  const loader =
+    document.getElementById(
+      'moonverse-loader'
+    );
+
+  if(!loader) return;
+
+  loader.innerHTML = `
+    <div style="
+      text-align:center;
+      padding:30px;
+      color:white;
+      font-family:Arial,sans-serif;
+    ">
+
+      <div style="
+        font-size:20px;
+        margin-bottom:12px;
+      ">
+        🌙 MoonVerse could not load
+      </div>
+
+      <div style="
+        font-size:12px;
+        line-height:1.6;
+        opacity:.65;
+        margin-bottom:20px;
+      ">
+        Please refresh the page and try again.
+      </div>
+
+      <button
+        onclick="location.reload()"
+        style="
+          padding:10px 22px;
+          border-radius:25px;
+          border:1px solid rgba(255,255,255,.4);
+          background:rgba(255,255,255,.1);
+          color:white;
+          cursor:pointer;
+        "
+      >
+        Reload
+      </button>
+
+    </div>
+  `;
+
+  loader.style.opacity = '1';
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+function initMoonVerse(){
+
+  const container =
+    document.getElementById(
+      'moonverse-container'
+    );
+
+
+  /* Renderer */
+
+  moonRenderer =
+    new THREE.WebGLRenderer({
+      antialias:false,
+      powerPreference:
+        "high-performance"
+    });
+
+
+  const isMobile =
+    /Android|iPhone|iPad|iPod|Mobile/i
+      .test(navigator.userAgent)
+    ||
+    window.innerWidth < 768;
+
+
+  moonRenderer.setPixelRatio(
+    Math.min(
+      window.devicePixelRatio,
+      isMobile ? 1.5 : 2
+    )
+  );
+
+
+  moonRenderer.setSize(
+    window.innerWidth,
+    window.innerHeight
+  );
+
+
+  moonRenderer.toneMapping =
+    THREE.ACESFilmicToneMapping;
+
+
+  moonRenderer.toneMappingExposure =
+    1.0;
+
+
+  container.appendChild(
+    moonRenderer.domElement
+  );
+
+
+  /* Scene */
+
+  moonScene =
+    new THREE.Scene();
+
+
+  moonScene.background =
+    new THREE.Color(
+      0x010206
+    );
+
+
+  moonScene.fog =
+    new THREE.FogExp2(
+      0x010206,
+      0.00028
+    );
+
+
+  /* Camera */
+
+  moonCamera =
+    new THREE.PerspectiveCamera(
+      55,
+      window.innerWidth /
+      window.innerHeight,
+      1,
+      30000
+    );
+
+
+  moonCamera.position.set(
+    0,
+    90,
+    300
+  );
+
+
+  /* =====================================================
+     LIGHTING
+  ===================================================== */
+
+  const ambientLight =
+    new THREE.AmbientLight(
+      0x203040,
+      0.5
+    );
+
+  moonScene.add(
+    ambientLight
+  );
+
+
+  const moonLight =
+    new THREE.DirectionalLight(
+      0x55aaff,
+      2.0
+    );
+
+  moonScene.add(
+    moonLight
+  );
+
+
+  /* =====================================================
+     HORIZON
+  ===================================================== */
+
+  const horizonCanvas =
+    document.createElement(
+      'canvas'
+    );
+
+  horizonCanvas.width = 1024;
+  horizonCanvas.height = 512;
+
+
+  const hCtx =
+    horizonCanvas.getContext(
+      '2d'
+    );
+
+
+  const hGrad =
+    hCtx.createLinearGradient(
+      0,
+      512,
+      0,
+      0
+    );
+
+
+  hGrad.addColorStop(
+    0,
+    'rgba(255,140,40,.6)'
+  );
+
+  hGrad.addColorStop(
+    .2,
+    'rgba(150,70,20,.3)'
+  );
+
+  hGrad.addColorStop(
+    .5,
+    'rgba(20,30,80,.1)'
+  );
+
+  hGrad.addColorStop(
+    1,
+    'rgba(0,0,0,0)'
+  );
+
+
+  hCtx.fillStyle =
+    hGrad;
+
+  hCtx.fillRect(
+    0,
+    0,
+    1024,
+    512
+  );
+
+
+  const horizonMat =
+    new THREE.SpriteMaterial({
+      map:
+        new THREE.CanvasTexture(
+          horizonCanvas
+        ),
+      transparent:true,
+      blending:
+        THREE.AdditiveBlending,
+      depthWrite:false
+    });
+
+
+  const horizon =
+    new THREE.Sprite(
+      horizonMat
+    );
+
+
+  horizon.scale.set(
+    30000,
+    6000,
+    1
+  );
+
+
+  horizon.position.set(
+    0,
+    1500,
+    -8000
+  );
+
+
+  moonScene.add(
+    horizon
+  );
+
+
+  /* =====================================================
+     MOON
+  ===================================================== */
+
+  const moonCanvas =
+    document.createElement(
+      'canvas'
+    );
+
+  moonCanvas.width = 512;
+  moonCanvas.height = 512;
+
+
+  const mCtx =
+    moonCanvas.getContext(
+      '2d'
+    );
+
+
+  const mGlow =
+    mCtx.createRadialGradient(
+      256,
+      256,
+      150,
+      256,
+      256,
+      256
+    );
+
+
+  mGlow.addColorStop(
+    0,
+    'rgba(200,220,255,.25)'
+  );
+
+  mGlow.addColorStop(
+    1,
+    'rgba(0,0,0,0)'
+  );
+
+
+  mCtx.fillStyle =
+    mGlow;
+
+  mCtx.fillRect(
+    0,
+    0,
+    512,
+    512
+  );
+
+
+  mCtx.fillStyle =
+    '#ffffff';
+
+
+  mCtx.beginPath();
+
+  mCtx.arc(
+    256,
+    256,
+    200,
+    0,
+    Math.PI * 2
+  );
+
+  mCtx.fill();
+
+
+  mCtx.globalCompositeOperation =
+    'destination-out';
+
+
+  mCtx.beginPath();
+
+  mCtx.arc(
+    205,
+    205,
+    195,
+    0,
+    Math.PI * 2
+  );
+
+  mCtx.fill();
+
+
+  mCtx.globalCompositeOperation =
+    'source-over';
+
+
+  const moonMat =
+    new THREE.SpriteMaterial({
+
+      map:
+        new THREE.CanvasTexture(
+          moonCanvas
+        ),
+
+      transparent:true,
+
+      color:
+        new THREE.Color(
+          1.8,
+          2.0,
+          2.3
+        ),
+
+      blending:
+        THREE.AdditiveBlending,
+
+      depthWrite:false
+
+    });
+
+
+  moon =
+    new THREE.Sprite(
+      moonMat
+    );
+
+
+  moon.scale.set(
+    1200,
+    1200,
+    1
+  );
+
+
+  moon.position.set(
+    1600,
+    1500,
+    -4800
+  );
+
+
+  moonMat.rotation =
+    Math.PI / 6.5;
+
+
+  moonScene.add(
+    moon
+  );
+
+
+  /* =====================================================
+     BRIGHT STAR
+  ===================================================== */
+
+  const starCanvas =
+    document.createElement(
+      'canvas'
+    );
+
+  starCanvas.width = 1024;
+  starCanvas.height = 1024;
+
+
+  const sCtx =
+    starCanvas.getContext(
+      '2d'
+    );
+
+
+  const sGrad =
+    sCtx.createRadialGradient(
+      512,
+      512,
+      0,
+      512,
+      512,
+      512
+    );
+
+
+  sGrad.addColorStop(
+    0,
+    'rgba(255,255,255,1)'
+  );
+
+  sGrad.addColorStop(
+    .05,
+    'rgba(150,220,255,.9)'
+  );
+
+  sGrad.addColorStop(
+    .2,
+    'rgba(50,150,255,.4)'
+  );
+
+  sGrad.addColorStop(
+    .5,
+    'rgba(0,50,255,.1)'
+  );
+
+  sGrad.addColorStop(
+    1,
+    'rgba(0,0,0,0)'
+  );
+
+
+  sCtx.fillStyle =
+    sGrad;
+
+  sCtx.fillRect(
+    0,
+    0,
+    1024,
+    1024
+  );
+
+
+  sCtx.save();
+
+  sCtx.translate(
+    512,
+    512
+  );
+
+  sCtx.rotate(
+    Math.PI / 5
+  );
+
+
+  sCtx.fillStyle =
+    'rgba(150,220,255,.55)';
+
+  sCtx.fillRect(
+    -320,
+    -2,
+    640,
+    4
+  );
+
+
+  sCtx.fillStyle =
+    'rgba(255,255,255,.9)';
+
+  sCtx.fillRect(
+    -140,
+    -1,
+    280,
+    2
+  );
+
+
+  sCtx.fillStyle =
+    'rgba(100,180,255,.45)';
+
+  sCtx.fillRect(
+    -2,
+    -140,
+    4,
+    280
+  );
+
+
+  sCtx.restore();
+
+
+  const brightStarMat =
+    new THREE.SpriteMaterial({
+
+      map:
+        new THREE.CanvasTexture(
+          starCanvas
+        ),
+
+      color:
+        new THREE.Color(
+          2.0,
+          2.5,
+          3.0
+        ),
+
+      transparent:true,
+
+      blending:
+        THREE.AdditiveBlending,
+
+      depthWrite:false
+
+    });
+
+
+  const brightStar =
+    new THREE.Sprite(
+      brightStarMat
+    );
+
+
+  brightStar.scale.set(
+    1800,
+    1800,
+    1
+  );
+
+
+  brightStar.position.set(
+    -2200,
+    1900,
+    -6200
+  );
+
+
+  moonScene.add(
+    brightStar
+  );
+
+
+  const moonGlowMat =
+    new THREE.SpriteMaterial({
+
+      map:
+        brightStarMat.map,
+
+      color:
+        new THREE.Color(
+          .1,
+          .3,
+          .8
+        ),
+
+      transparent:true,
+
+      opacity:.5,
+
+      blending:
+        THREE.AdditiveBlending,
+
+      depthWrite:false
+
+    });
+
+
+  const moonGlow =
+    new THREE.Sprite(
+      moonGlowMat
+    );
+
+
+  moonGlow.scale.set(
+    2600,
+    2600,
+    1
+  );
+
+
+  moonGlow.position.copy(
+    moon.position
+  );
+
+
+  moonScene.add(
+    moonGlow
+  );
+
+
+  moonLight.position.copy(
+    brightStar.position
+  );
+
+
+  /* =====================================================
+     STARS
+  ===================================================== */
+
+  const starsGeo =
+    new THREE.BufferGeometry();
+
+
+  const starsCount = 18000;
+
+
+  const posArray =
+    new Float32Array(
+      starsCount * 3
+    );
+
+
+  const sizesArray =
+    new Float32Array(
+      starsCount
+    );
+
+
+  const colorsArray =
+    new Float32Array(
+      starsCount * 3
+    );
+
+
+  for(
+    let i = 0;
+    i < starsCount;
+    i++
+  ){
+
+    let x,y,z;
+
+
+    if(i < 6000){
+
+      const mx =
+        (Math.random()-.5) *
+        18000;
+
+      const my =
+        (Math.random()-.5) *
+        4500;
+
+      const angle =
+        Math.PI / 3.5;
+
+
+      x =
+        mx * Math.cos(angle) -
+        my * Math.sin(angle) -
+        2000;
+
+
+      y =
+        mx * Math.sin(angle) +
+        my * Math.cos(angle) +
+        3000;
+
+
+      z =
+        -5000 -
+        Math.random() * 4000;
+
+
+      colorsArray[i*3] =
+        .4 + Math.random()*.4;
+
+      colorsArray[i*3+1] =
+        .7 + Math.random()*.3;
+
+      colorsArray[i*3+2] =
+        1.0;
+
+    }
+
+    else{
+
+      const r =
+        7000 +
+        Math.random()*5000;
+
+      const theta =
+        2 *
+        Math.PI *
+        Math.random();
+
+      const phi =
+        Math.acos(
+          Math.random()*2-1
+        );
+
+
+      x =
+        r *
+        Math.sin(phi) *
+        Math.cos(theta);
+
+
+      y =
+        Math.abs(
+          r * Math.cos(phi)
+        ) +
+        100;
+
+
+      z =
+        r *
+        Math.sin(phi) *
+        Math.sin(theta);
+
+
+      if(
+        Math.random() > .8
+      ){
+
+        colorsArray[i*3] = .9;
+        colorsArray[i*3+1] = .8;
+        colorsArray[i*3+2] = 1.0;
+
+      }
+
+      else{
+
+        colorsArray[i*3] = 1.0;
+        colorsArray[i*3+1] = 1.0;
+        colorsArray[i*3+2] = 1.0;
+
+      }
+
+    }
+
+
+    posArray[i*3] = x;
+    posArray[i*3+1] = y;
+    posArray[i*3+2] = z;
+
+
+    sizesArray[i] =
+      1.0 +
+      Math.random()*4.5;
+
+  }
+
+
+  starsGeo.setAttribute(
+    'color',
+    new THREE.BufferAttribute(
+      colorsArray,
+      3
+    )
+  );
+
+
+  starsGeo.setAttribute(
+    'position',
+    new THREE.BufferAttribute(
+      posArray,
+      3
+    )
+  );
+
+
+  starsGeo.setAttribute(
+    'aSize',
+    new THREE.BufferAttribute(
+      sizesArray,
+      1
+    )
+  );
+
+
+  starShaderMat =
+    new THREE.ShaderMaterial({
+
+      uniforms:{
+        time:{
+          value:0
+        }
+      },
+
+      vertexShader:`
+
+        attribute float aSize;
+
+        attribute vec3 color;
+
+        varying float vAlpha;
+
+        varying vec3 vColor;
+
+        uniform float time;
+
+        void main(){
+
+          vec4 mvPosition =
+            modelViewMatrix *
+            vec4(position,1.0);
+
+          gl_Position =
+            projectionMatrix *
+            mvPosition;
+
+          gl_PointSize =
+            aSize *
+            (400.0 / -mvPosition.z);
+
+          vAlpha =
+            0.4 +
+            0.6 *
+            sin(
+              time * 1.8 +
+              position.x * 120.0 +
+              position.y * 30.0
+            );
+
+          vColor =
+            color;
+
+        }
+
+      `,
+
+      fragmentShader:`
+
+        varying vec3 vColor;
+
+        varying float vAlpha;
+
+        void main(){
+
+          float dist =
+            length(
+              gl_PointCoord -
+              vec2(.5)
+            );
+
+          if(dist > .5)
+            discard;
+
+          gl_FragColor =
+            vec4(
+              vColor,
+              vAlpha *
+              (1.0 - dist * 2.0)
+            );
+
+        }
+
+      `,
+
+      transparent:true,
+
+      blending:
+        THREE.AdditiveBlending,
+
+      depthWrite:false
+
+    });
+
+
+  const starsMesh =
+    new THREE.Points(
+      starsGeo,
+      starShaderMat
+    );
+
+
+  moonScene.add(
+    starsMesh
+  );
+
+
+  /* =====================================================
+     AURORA
+  ===================================================== */
+
+  const auroraGeo =
+    new THREE.CylinderGeometry(
+      7600,
+      9000,
+      2800,
+      180,
+      80,
+      true
+    );
+
+
+  auroraMat =
+    new THREE.ShaderMaterial({
+
+      uniforms:{
+        time:{
+          value:0
+        }
+      },
+
+      vertexShader:`
+
+        varying vec2 vUv;
+
+        varying float vNoise;
+
+        varying float vHeightFactor;
+
+        uniform float time;
+
+
+        float hash(vec2 p){
+
+          return fract(
+            sin(
+              dot(
+                p,
+                vec2(
+                  127.1,
+                  311.7
+                )
+              )
+            ) *
+            43758.5453123
+          );
+
+        }
+
+
+        float noise(vec2 p){
+
+          vec2 i =
+            floor(p);
+
+          vec2 f =
+            fract(p);
+
+          vec2 u =
+            f*f*(3.0-2.0*f);
+
+
+          return mix(
+
+            mix(
+              hash(
+                i +
+                vec2(0.0,0.0)
+              ),
+
+              hash(
+                i +
+                vec2(1.0,0.0)
+              ),
+
+              u.x
+            ),
+
+            mix(
+              hash(
+                i +
+                vec2(0.0,1.0)
+              ),
+
+              hash(
+                i +
+                vec2(1.0,1.0)
+              ),
+
+              u.x
+            ),
+
+            u.y
+
+          );
+
+        }
+
+
+        void main(){
+
+          vUv =
+            uv;
+
+          vec3 pos =
+            position;
+
+          float angle =
+            atan(
+              pos.z,
+              pos.x
+            );
+
+
+          float n =
+            noise(
+              vec2(
+                angle * 3.0 +
+                time * .04,
+
+                pos.y * .0008 -
+                time * .02
+              )
+            );
+
+
+          n +=
+            .4 *
+            noise(
+              vec2(
+                angle * 7.5 -
+                time * .07,
+
+                pos.y * .002 +
+                time * .03
+              )
+            );
+
+
+          n +=
+            .15 *
+            noise(
+              vec2(
+                angle * 16.0 +
+                time * .12,
+
+                uv.y * 4.0
+              )
+            );
+
+
+          vNoise =
+            n;
+
+          vHeightFactor =
+            uv.y;
+
+
+          float waveX =
+            sin(
+              angle * 4.0 +
+              time * .12
+            ) *
+            500.0;
+
+
+          float waveZ =
+            cos(
+              angle * 2.5 -
+              time * .08
+            ) *
+            500.0;
+
+
+          pos.x +=
+            sin(angle) *
+            n *
+            650.0 +
+            waveX *
+            uv.y;
+
+
+          pos.z +=
+            cos(angle) *
+            n *
+            650.0 +
+            waveZ *
+            uv.y;
+
+
+          pos.y +=
+            sin(
+              angle * 2.5 +
+              time * .18
+            ) *
+            180.0 *
+            (1.0-uv.y);
+
+
+          gl_Position =
+            projectionMatrix *
+            modelViewMatrix *
+            vec4(
+              pos,
+              1.0
+            );
+
+        }
+
+      `,
+
+      fragmentShader:`
+
+        varying vec2 vUv;
+
+        varying float vNoise;
+
+        varying float vHeightFactor;
+
+        uniform float time;
+
+
+        void main(){
+
+          float verticalFade =
+            smoothstep(
+              0.0,
+              .08,
+              vHeightFactor
+            ) *
+            smoothstep(
+              1.0,
+              .45,
+              vHeightFactor
+            );
+
+
+          float angle =
+            vUv.x *
+            6.28318530718;
+
+
+          float halfSideFade =
+            smoothstep(
+              0.0,
+              .25,
+              angle
+            ) *
+            smoothstep(
+              3.14159265359,
+              2.4,
+              angle
+            );
+
+
+          vec3 baseDeepGreen =
+            vec3(
+              .00,
+              .18,
+              .08
+            );
+
+
+          vec3 brightGreen =
+            vec3(
+              .02,
+              .85,
+              .38
+            );
+
+
+          vec3 softTeal =
+            vec3(
+              .01,
+              .45,
+              .65
+            );
+
+
+          vec3 deepViolet =
+            vec3(
+              .25,
+              .02,
+              .60
+            );
+
+
+          vec3 topMagenta =
+            vec3(
+              .55,
+              .01,
+              .32
+            );
+
+
+          vec3 colorStructure;
+
+
+          if(
+            vHeightFactor < .12
+          ){
+
+            colorStructure =
+              mix(
+                baseDeepGreen,
+                brightGreen,
+                smoothstep(
+                  0.0,
+                  .12,
+                  vHeightFactor
+                )
+              );
+
+          }
+
+          else if(
+            vHeightFactor < .45
+          ){
+
+            colorStructure =
+              mix(
+                brightGreen,
+                softTeal,
+                smoothstep(
+                  .12,
+                  .45,
+                  vHeightFactor
+                )
+              );
+
+          }
+
+          else if(
+            vHeightFactor < .78
+          ){
+
+            colorStructure =
+              mix(
+                softTeal,
+                deepViolet,
+                smoothstep(
+                  .45,
+                  .78,
+                  vHeightFactor
+                )
+              );
+
+          }
+
+          else{
+
+            colorStructure =
+              mix(
+                deepViolet,
+                topMagenta,
+                smoothstep(
+                  .78,
+                  1.0,
+                  vHeightFactor
+                )
+              );
+
+          }
+
+
+          float ray1 =
+            sin(
+              vUv.x *
+              320.0 +
+              time*.6
+            ) *
+            cos(
+              vUv.x *
+              160.0 -
+              time*.3
+            );
+
+
+          float ray2 =
+            sin(
+              vUv.x *
+              640.0 -
+              time*1.1
+            )*.4;
+
+
+          float ray3 =
+            sin(
+              vUv.x *
+              110.0 +
+              time*.2
+            )*.3;
+
+
+          float curtainRays =
+            smoothstep(
+              -.4,
+              .6,
+              ray1 +
+              ray2 +
+              ray3
+            )*.75;
+
+
+          float baseNoise =
+            smoothstep(
+              .05,
+              .55,
+              vNoise
+            );
+
+
+          float intensity =
+            baseNoise *
+            verticalFade *
+            halfSideFade;
+
+
+          intensity *=
+            (
+              .35 +
+              curtainRays *
+              smoothstep(
+                .08,
+                1.0,
+                vHeightFactor
+              ) *
+              1.8
+            );
+
+
+          gl_FragColor =
+            vec4(
+              colorStructure * 1.1,
+              intensity * .24
+            );
+
+        }
+
+      `,
+
+      transparent:true,
+
+      blending:
+        THREE.AdditiveBlending,
+
+      side:
+        THREE.DoubleSide,
+
+      depthWrite:false
+
+    });
+
+
+  const auroraMesh =
+    new THREE.Mesh(
+      auroraGeo,
+      auroraMat
+    );
+
+
+  auroraMesh.position.set(
+    -2400,
+    1950,
+    -2000
+  );
+
+
+  auroraMesh.rotation.y =
+    Math.PI * 1.52;
+
+
+  moonScene.add(
+    auroraMesh
+  );
+
+
+  /* =====================================================
+     MOUNTAINS
+  ===================================================== */
+
+  const mountGeo =
+    new THREE.PlaneGeometry(
+      16000,
+      16000,
+      256,
+      256
+    );
+
+
+  mountGeo.rotateX(
+    -Math.PI / 2
+  );
+
+
+  const pos =
+    mountGeo.attributes.position;
+
+
+  function smoothstep(
+    min,
+    max,
+    value
+  ){
+
+    let x =
+      Math.max(
+        0,
+        Math.min(
+          1,
+          (value-min) /
+          (max-min)
+        )
+      );
+
+    return x*x*(3-2*x);
+
+  }
+
+
+  for(
+    let i = 0;
+    i < pos.count;
+    i++
+  ){
+
+    const x =
+      pos.getX(i);
+
+    const z =
+      pos.getZ(i);
+
+    const dist =
+      Math.sqrt(
+        x*x + z*z
+      );
+
+
+    let y = 0;
+
+
+    y +=
+      Math.sin(x*.0004) *
+      Math.cos(z*.0004) *
+      500;
+
+
+    y +=
+      Math.sin(
+        x*.0015 +
+        z*.002
+      ) *
+      150;
+
+
+    y +=
+      Math.sin(x*.005) *
+      Math.cos(z*.005) *
+      50;
+
+
+    let mask =
+      smoothstep(
+        800,
+        5000,
+        dist
+      );
+
+
+    if(z > 500)
+      mask *= .15;
+
+
+    y *= mask;
+
+    y -= 80;
+
+
+    y +=
+      Math.max(
+        0,
+        Math.sin(x*.0002) *
+        Math.cos(z*.0002) *
+        300 *
+        smoothstep(
+          3000,
+          8000,
+          dist
+        )
+      );
+
+
+    if(y > 0){
+
+      y +=
+        Math.pow(
+          y*.02,
+          1.2
+        );
+
+    }
+
+
+    pos.setY(
+      i,
+      y
+    );
+
+  }
+
+
+  mountGeo.computeVertexNormals();
+
+
+  const mountMat =
+    new THREE.MeshStandardMaterial({
+
+      color:
+        0x010306,
+
+      roughness:
+        .95,
+
+      metalness:
+        .05,
+
+      flatShading:
+        false
+
+    });
+
+
+  const mountains =
+    new THREE.Mesh(
+      mountGeo,
+      mountMat
+    );
+
+
+  moonScene.add(
+    mountains
+  );
+
+
+  /* =====================================================
+     WATER
+  ===================================================== */
+
+  const waterGeometry =
+    new THREE.PlaneGeometry(
+      25000,
+      25000
+    );
+
+
+  const waterCanvas =
+    document.createElement(
+      'canvas'
+    );
+
+
+  waterCanvas.width = 512;
+  waterCanvas.height = 512;
+
+
+  const ctx =
+    waterCanvas.getContext(
+      '2d'
+    );
+
+
+  for(
+    let i = 0;
+    i < 512;
+    i += 32
+  ){
+
+    for(
+      let j = 0;
+      j < 512;
+      j += 32
+    ){
+
+      ctx.fillStyle =
+        `rgb(
+          ${128 + Math.random()*30},
+          ${128 + Math.random()*30},
+          255
+        )`;
+
+      ctx.fillRect(
+        i,
+        j,
+        32,
+        32
+      );
+
+    }
+
+  }
+
+
+  const waterNormals =
+    new THREE.CanvasTexture(
+      waterCanvas
+    );
+
+
+  waterNormals.wrapS =
+    THREE.RepeatWrapping;
+
+  waterNormals.wrapT =
+    THREE.RepeatWrapping;
+
+
+  moonWater =
+  new Water(
+    waterGeometry,
+    {
+
+        textureWidth:512,
+
+        textureHeight:512,
+
+        waterNormals:
+          waterNormals,
+
+        sunDirection:
+          new THREE.Vector3()
+            .copy(
+              moonLight.position
+            )
+            .normalize(),
+
+        sunColor:
+          0xbbddff,
+
+        waterColor:
+          0x00081a,
+
+        distortionScale:
+          .4,
+
+        fog:
+          moonScene.fog !== undefined
+
+      }
+    );
+
+
+  moonWater.rotation.x = -Math.PI / 2;
+moonWater.position.y = -5;
+moonScene.add(moonWater);
+
+
+  /* =====================================================
+     BLOOM
+  ===================================================== */
+
+  const renderScene =
+    new RenderPass(
+      moonScene,
+      moonCamera
+    );
+
+
+  const bloomPass =
+    new UnrealBloomPass(
+      new THREE.Vector2(
+        window.innerWidth,
+        window.innerHeight
+      ),
+      1.5,
+      .4,
+      .85
+    );
+
+
+  bloomPass.threshold =
+    .15;
+
+  bloomPass.strength =
+    1.3;
+
+  bloomPass.radius =
+    1.0;
+
+
+  moonComposer =
+    new EffectComposer(
+      moonRenderer
+    );
+
+
+  moonComposer.addPass(
+    renderScene
+  );
+
+  moonComposer.addPass(
+    bloomPass
+  );
+
+
+  /* =====================================================
+     CONTROLS
+  ===================================================== */
+
+  moonControls =
+    new OrbitControls(
+      moonCamera,
+      moonRenderer.domElement
+    );
+
+
+  moonControls.maxPolarAngle =
+    Math.PI / 2 + .02;
+
+
+  moonControls.minPolarAngle =
+    Math.PI / 3;
+
+
+  moonControls.minDistance =
+    50;
+
+
+  moonControls.maxDistance =
+    1200;
+
+
+  moonControls.enablePan =
+    false;
+
+
+  moonControls.enableDamping =
+    true;
+
+
+  moonControls.dampingFactor =
+    .04;
+
+
+  moonControls.target.set(
+    -150,
+    90,
+    -500
+  );
+
+
+  moonControls.update();
+
+
+  /* =====================================================
+     SHOOTING STAR TEXTURE
+  ===================================================== */
+
+  const starHeadCanvas =
+    document.createElement(
+      'canvas'
+    );
+
+
+  starHeadCanvas.width = 64;
+  starHeadCanvas.height = 64;
+
+
+  const starHeadCtx =
+    starHeadCanvas.getContext(
+      '2d'
+    );
+
+
+  const starHeadGrad =
+    starHeadCtx.createRadialGradient(
+      32,
+      32,
+      0,
+      32,
+      32,
+      32
+    );
+
+
+  starHeadGrad.addColorStop(
+    0,
+    'rgba(255,255,255,1)'
+  );
+
+  starHeadGrad.addColorStop(
+    .1,
+    'rgba(150,200,255,.8)'
+  );
+
+  starHeadGrad.addColorStop(
+    .4,
+    'rgba(50,120,255,.3)'
+  );
+
+  starHeadGrad.addColorStop(
+    1,
+    'rgba(0,0,0,0)'
+  );
+
+
+  starHeadCtx.fillStyle =
+    starHeadGrad;
+
+  starHeadCtx.fillRect(
+    0,
+    0,
+    64,
+    64
+  );
+
+
+  starHeadTex =
+    new THREE.CanvasTexture(
+      starHeadCanvas
+    );
+
+
+  /* =====================================================
+     FISH
+  ===================================================== */
+
+  const fishCanvas =
+    document.createElement(
+      'canvas'
+    );
+
+
+  fishCanvas.width = 32;
+  fishCanvas.height = 32;
+
+
+  const fishCtx =
+    fishCanvas.getContext(
+      '2d'
+    );
+
+
+  const fishGrad =
+    fishCtx.createRadialGradient(
+      16,
+      16,
+      0,
+      16,
+      16,
+      16
+    );
+
+
+  fishGrad.addColorStop(
+    0,
+    'rgba(100,255,200,.6)'
+  );
+
+  fishGrad.addColorStop(
+    .3,
+    'rgba(50,200,150,.3)'
+  );
+
+  fishGrad.addColorStop(
+    1,
+    'rgba(0,0,0,0)'
+  );
+
+
+  fishCtx.fillStyle =
+    fishGrad;
+
+  fishCtx.fillRect(
+    0,
+    0,
+    32,
+    32
+  );
+
+
+  fishMat =
+    new THREE.SpriteMaterial({
+
+      map:
+        new THREE.CanvasTexture(
+          fishCanvas
+        ),
+
+      color:0xffffff,
+
+      transparent:true,
+
+      blending:
+        THREE.AdditiveBlending,
+
+      depthWrite:false
+
+    });
+
+
+  for(
+    let i = 0;
+    i < 150;
+    i++
+  ){
+
+    createFish();
+
+  }
+
+
+  /* =====================================================
+     RESIZE
+  ===================================================== */
+
+  window.addEventListener(
+    'resize',
+    onMoonResize
+  );
+
+
+  /* =====================================================
+     LOADER
+  ===================================================== */
+
+  animateMoonVerse();
+
+setTimeout(() => {
+
+  const loader =
+    document.getElementById(
+      'moonverse-loader'
+    );
+
+  const ui =
+    document.getElementById(
+      'moonverse-ui'
+    );
+
+  if(!loader) return;
+
+  loader.style.opacity =
+    '0';
+
+  setTimeout(() => {
+
+    loader.style.display =
+      'none';
+
+    if(ui){
+
+      ui.style.opacity =
+        '1';
+
+    }
+
+  }, 1000);
+
+}, 1200);
+
+  animateMoonVerse();
+
+setTimeout(() => {
+  hideMoonLoader();
+}, 1200);
+
+}
+
+
+/* =========================================================
+   SHOOTING STAR
+========================================================= */
+
+function createShootingStar(){
+
+  const startX =
+    (Math.random()-.5) *
+    8000;
+
+  const startY =
+    2000 +
+    Math.random()*1500;
+
+  const startZ =
+    (Math.random()-.5) *
+    8000;
+
+
+  const geo =
+    new THREE.BufferGeometry();
+
+
+  const pos =
+    new Float32Array(6);
+
+
+  pos[0] = startX;
+  pos[1] = startY;
+  pos[2] = startZ;
+
+  pos[3] = startX;
+  pos[4] = startY;
+  pos[5] = startZ;
+
+
+  geo.setAttribute(
+    'position',
+    new THREE.BufferAttribute(
+      pos,
+      3
+    )
+  );
+
+
+  const colors =
+    new Float32Array([
+
+      0,0,0,
+
+      1,1,1
+
+    ]);
+
+
+  geo.setAttribute(
+    'color',
+    new THREE.BufferAttribute(
+      colors,
+      3
+    )
+  );
+
+
+  const mat =
+    new THREE.LineBasicMaterial({
+
+      vertexColors:true,
+
+      transparent:true,
+
+      opacity:1,
+
+      blending:
+        THREE.AdditiveBlending
+
+    });
+
+
+  const line =
+    new THREE.Line(
+      geo,
+      mat
+    );
+
+
+  moonScene.add(
+    line
+  );
+
+
+  const spriteMat =
+    new THREE.SpriteMaterial({
+
+      map:
+        starHeadTex,
+
+      color:
+        0xaaccff,
+
+      transparent:true,
+
+      blending:
+        THREE.AdditiveBlending
+
+    });
+
+
+  const head =
+    new THREE.Sprite(
+      spriteMat
+    );
+
+
+  head.scale.set(
+    100,
+    100,
+    1
+  );
+
+
+  head.position.set(
+    startX,
+    startY,
+    startZ
+  );
+
+
+  moonScene.add(
+    head
+  );
+
+
+  const speed =
+    70 +
+    Math.random()*50;
+
+
+  const dirX =
+    (Math.random()-.5)*.8;
+
+  const dirY =
+    -.3 -
+    Math.random()*.4;
+
+  const dirZ =
+    (Math.random()-.5)*.8;
+
+
+  shootingStars.push({
+
+    mesh:line,
+
+    head:head,
+
+    speed:speed,
+
+    dir:
+      new THREE.Vector3(
+        dirX,
+        dirY,
+        dirZ
+      ).normalize(),
+
+    life:1.0
+
+  });
+
+}
+
+
+/* =========================================================
+   BIRDS
+========================================================= */
+
+function createBird(){
+
+  const birdGeo =
+    new THREE.BufferGeometry();
+
+
+  const vertices =
+    new Float32Array([
+
+      0,0,0,
+
+      -10,3,-5,
+
+      10,3,-5
+
+    ]);
+
+
+  birdGeo.setAttribute(
+    'position',
+    new THREE.BufferAttribute(
+      vertices,
+      3
+    )
+  );
+
+
+  birdGeo.setIndex([
+    0,1,
+    0,2
+  ]);
+
+
+  const mat =
+    new THREE.LineBasicMaterial({
+
+      color:
+        0x010204,
+
+      transparent:true,
+
+      opacity:.8
+
+    });
+
+
+  const bird =
+    new THREE.LineSegments(
+      birdGeo,
+      mat
+    );
+
+
+  const angle =
+    Math.random() *
+    Math.PI * 2;
+
+
+  const radius =
+    1500 +
+    Math.random()*1000;
+
+
+  const startX =
+    Math.cos(angle) *
+    radius;
+
+
+  const startZ =
+    Math.sin(angle) *
+    radius;
+
+
+  const startY =
+    200 +
+    Math.random()*400;
+
+
+  bird.position.set(
+    startX,
+    startY,
+    startZ
+  );
+
+
+  moonScene.add(
+    bird
+  );
+
+
+  birds.push({
+
+    mesh:bird,
+
+    speedX:
+      -Math.cos(angle) *
+      (8 + Math.random()*10),
+
+    speedZ:
+      -Math.sin(angle) *
+      (8 + Math.random()*10),
+
+    speedY:
+      (Math.random()-.5)*1.5,
+
+    wingSpeed:
+      .1 +
+      Math.random()*.1,
+
+    flapOffset:
+      Math.random() *
+      Math.PI * 2
+
+  });
+
+}
+
+
+/* =========================================================
+   FISH
+========================================================= */
+
+function createFish(){
+
+  const fish =
+    new THREE.Sprite(
+      fishMat
+    );
+
+
+  const scale =
+    3 +
+    Math.random()*8;
+
+
+  fish.scale.set(
+    scale,
+    scale,
+    1
+  );
+
+
+  const r =
+    30 +
+    Math.random()*1200;
+
+
+  const theta =
+    Math.random() *
+    Math.PI * 2;
+
+
+  const y =
+    -1 -
+    Math.random()*10;
+
+
+  fish.position.set(
+
+    r*Math.cos(theta),
+
+    y,
+
+    r*Math.sin(theta)
+
+  );
+
+
+  moonScene.add(
+    fish
+  );
+
+
+  fishes.push({
+
+    mesh:fish,
+
+    baseY:y,
+
+    speed:
+      .2 +
+      Math.random()*.8,
+
+    angle:
+      Math.random() *
+      Math.PI * 2,
+
+    turnSpeed:
+      (Math.random()-.5) *
+      .02
+
+  });
+
+}
+
+
+/* =========================================================
+   RESIZE
+========================================================= */
+
+function onMoonResize(){
+
+  if(
+    !moonCamera ||
+    !moonRenderer
+  ) return;
+
+
+  const container =
+    document.getElementById(
+      'moonverse-container'
+    );
+
+
+  const width =
+    container.clientWidth ||
+    window.innerWidth;
+
+
+  const height =
+    container.clientHeight ||
+    window.innerHeight;
+
+
+  moonCamera.aspect =
+    width / height;
+
+
+  moonCamera.updateProjectionMatrix();
+
+
+  moonRenderer.setSize(
+    width,
+    height
+  );
+
+
+  if(moonComposer){
+
+    moonComposer.setSize(
+      width,
+      height
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+function animateMoonVerse(){
+
+  requestAnimationFrame(
+    animateMoonVerse
+  );
+
+
+  if(
+    !moonInitialized
+  ) return;
+
+
+  if(
+    !moonAnimationStarted
+  ) return;
+
+
+  const time =
+    performance.now() *
+    .001;
+
+
+  /* Water */
+
+  if(moonWater){
+
+    moonWater
+      .material
+      .uniforms['time']
+      .value +=
+      1 / 60;
+
+  }
+
+
+  /* Moon */
+
+  if(moon){
+
+    moon.rotation.y =
+      time * .01;
+
+  }
+
+
+  /* Stars */
+
+  if(starShaderMat){
+
+    starShaderMat
+      .uniforms
+      .time
+      .value =
+      time;
+
+  }
+
+
+  /* Aurora */
+
+  if(auroraMat){
+
+    auroraMat
+      .uniforms
+      .time
+      .value =
+      time;
+
+  }
+
+
+  /* Controls */
+
+  if(moonControls){
+
+    moonControls.update();
+
+  }
+
+
+  /* Shooting stars */
+
+  if(
+    Math.random() < .02
+  ){
+
+    createShootingStar();
+
+  }
+
+
+  for(
+    let i =
+      shootingStars.length - 1;
+
+    i >= 0;
+
+    i--
+  ){
+
+    const star =
+      shootingStars[i];
+
+
+    star.life -=
+      .012;
+
+
+    if(
+      star.life <= 0
+    ){
+
+      moonScene.remove(
+        star.mesh
+      );
+
+      star.mesh.geometry.dispose();
+
+      star.mesh.material.dispose();
+
+
+      moonScene.remove(
+        star.head
+      );
+
+      star.head.material.dispose();
+
+
+      shootingStars.splice(
+        i,
+        1
+      );
+
+      continue;
+
+    }
+
+
+    const positions =
+      star.mesh
+        .geometry
+        .attributes
+        .position
+        .array;
+
+
+    positions[3] +=
+      star.dir.x *
+      star.speed;
+
+    positions[4] +=
+      star.dir.y *
+      star.speed;
+
+    positions[5] +=
+      star.dir.z *
+      star.speed;
+
+
+    const tailLength =
+      600 *
+      (
+        1 -
+        Math.pow(
+          1-star.life,
+          3
+        )
+      );
+
+
+    positions[0] =
+      positions[3] -
+      star.dir.x *
+      tailLength;
+
+
+    positions[1] =
+      positions[4] -
+      star.dir.y *
+      tailLength;
+
+
+    positions[2] =
+      positions[5] -
+      star.dir.z *
+      tailLength;
+
+
+    star.mesh
+      .geometry
+      .attributes
+      .position
+      .needsUpdate =
+      true;
+
+
+    star.head.position.set(
+
+      positions[3],
+
+      positions[4],
+
+      positions[5]
+
+    );
+
+
+    const opacity =
+      Math.max(
+        0,
+        star.life * 1.5
+      );
+
+
+    star.mesh.material.opacity =
+      opacity;
+
+    star.head.material.opacity =
+      opacity;
+
+  }
+
+
+  /* Birds */
+
+  if(
+    Math.random() < .005
+  ){
+
+    createBird();
+
+  }
+
+
+  for(
+    let i =
+      birds.length - 1;
+
+    i >= 0;
+
+    i--
+  ){
+
+    const bird =
+      birds[i];
+
+
+    bird.mesh.position.x +=
+      bird.speedX;
+
+    bird.mesh.position.y +=
+      bird.speedY;
+
+    bird.mesh.position.z +=
+      bird.speedZ;
+
+
+    const flap =
+      Math.sin(
+        time *
+        bird.wingSpeed *
+        100 +
+        bird.flapOffset
+      ) * 6;
+
+
+    const pos =
+      bird.mesh
+        .geometry
+        .attributes
+        .position
+        .array;
+
+
+    pos[4] =
+      flap;
+
+    pos[7] =
+      flap;
+
+
+    bird.mesh
+      .geometry
+      .attributes
+      .position
+      .needsUpdate =
+      true;
+
+
+    if(
+      bird.mesh.position.lengthSq() >
+      25000000
+    ){
+
+      moonScene.remove(
+        bird.mesh
+      );
+
+      bird.mesh.geometry.dispose();
+
+      bird.mesh.material.dispose();
+
+      birds.splice(
+        i,
+        1
+      );
+
+    }
+
+  }
+
+
+  /* Fish */
+
+  for(
+    let i = 0;
+    i < fishes.length;
+    i++
+  ){
+
+    const fish =
+      fishes[i];
+
+
+    fish.angle +=
+      fish.turnSpeed;
+
+
+    fish.mesh.position.x +=
+      Math.cos(
+        fish.angle
+      ) *
+      fish.speed;
+
+
+    fish.mesh.position.z +=
+      Math.sin(
+        fish.angle
+      ) *
+      fish.speed;
+
+
+    fish.mesh.position.y =
+      fish.baseY +
+      Math.sin(
+        time * 2 + i
+      ) *
+      1.5;
+
+
+    const dist =
+      Math.sqrt(
+        fish.mesh.position.x **
+        2 +
+
+        fish.mesh.position.z **
+        2
+      );
+
+
+    if(dist > 1500){
+
+      fish.angle +=
+        Math.PI;
+
+    }
+
+  }
+
+
+  /* Render */
+
+  if(moonComposer){
+
+    moonComposer.render();
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
